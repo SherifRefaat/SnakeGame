@@ -1,18 +1,18 @@
 var SnakeGame = (function () {
     function SnakeGame() {
-        this.HeadBead = 'HeadBead.png';
-        this.BodyBead = 'BodyBead.png';
+        this.snake = [];
+        this.snakeSize = 4;
     }
     SnakeGame.prototype.preload = function (game) {
-        game.load.image('headBead', this.HeadBead);
-        game.load.image('bodyBead', this.BodyBead);
+        game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
+        game.load.image(Bead.BodyBeadKey, Bead.BodyBead);
     };
     SnakeGame.prototype.create = function (game) {
-        // initial body contains 3 beads + the head bead
-        var span = 0;
-        for (var i = 0; i < 3; i++, span += 30)
-            game.add.sprite(0 + span, 0, 'bodyBead');
-        game.add.sprite(span, 0, 'headBead');
+        for (var i = 0, span = 0; i < this.snakeSize; i++, span += Bead.BeadSize) {
+            var bead = new Bead((i == this.snakeSize - 1), 0 + span, 0);
+            bead.addToGame(game);
+            this.snake.push(bead);
+        }
     };
     SnakeGame.prototype.update = function (game) {
         var cursors = game.input.keyboard.createCursorKeys();

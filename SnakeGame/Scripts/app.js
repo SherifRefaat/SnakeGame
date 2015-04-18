@@ -1,3 +1,4 @@
+/// <reference path="phaser.d.ts" />
 var SimpleGame = (function () {
     function SimpleGame() {
         this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content', {

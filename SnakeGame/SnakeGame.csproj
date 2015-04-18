@@ -22,10 +22,12 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Resources\BodyBead.png" />
     <Content Include="Resources\HeadBead.png" />
+    <Content Include="Scripts\phaser.js" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\app.ts" />
+    <TypeScriptCompile Include="Scripts\Bead.ts" />
     <TypeScriptCompile Include="Scripts\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\phaser.d.ts" />
     <TypeScriptCompile Include="Scripts\pixi.d.ts" />

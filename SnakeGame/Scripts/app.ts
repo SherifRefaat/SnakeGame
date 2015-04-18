@@ -1,4 +1,6 @@
-﻿class SimpleGame {
+﻿/// <reference path="phaser.d.ts" />
+
+class SimpleGame {
     game: Phaser.Game;
     snake: SnakeGame;
 

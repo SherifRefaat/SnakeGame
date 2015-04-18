@@ -1,20 +1,19 @@
 ﻿class SnakeGame {
-    HeadBead: string = 'HeadBead.png';
-    BodyBead: string = 'BodyBead.png';
+    snake: Bead[] = [];
+    snakeSize: number = 4;
 
     preload(game: Phaser.Game) {
-        game.load.image('headBead', this.HeadBead);
-        game.load.image('bodyBead', this.BodyBead);
+        game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
+        game.load.image(Bead.BodyBeadKey, Bead.BodyBead);
     }
 
     create(game: Phaser.Game) {
         // initial body contains 3 beads + the head bead
-        var span: number = 0;
-
-        for (var i = 0; i < 3; i++, span += 30)
-            game.add.sprite(0 + span, 0, 'bodyBead');
-
-        game.add.sprite(span, 0, 'headBead');
+        for (var i: number = 0, span: number = 0; i < this.snakeSize; i++ , span += Bead.BeadSize) {
+            var bead = new Bead((i == this.snakeSize - 1), 0 + span, 0);
+            bead.addToGame(game);
+            this.snake.push(bead);
+        }
     }
 
     update(game: Phaser.Game) {

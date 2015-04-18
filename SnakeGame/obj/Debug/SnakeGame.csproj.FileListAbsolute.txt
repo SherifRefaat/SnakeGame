@@ -4,3 +4,9 @@ C:\myCloset\Projects\Current\SnakeGame\SnakeGame\SnakeGame\bin\SnakeGame.pdb
 C:\myCloset\Projects\Current\SnakeGame\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csprojResolveAssemblyReference.cache
 C:\myCloset\Projects\Current\SnakeGame\SnakeGame\SnakeGame\obj\Debug\SnakeGame.dll
 C:\myCloset\Projects\Current\SnakeGame\SnakeGame\SnakeGame\obj\Debug\SnakeGame.pdb
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\bin\SnakeGame.dll.config
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\bin\SnakeGame.dll
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\bin\SnakeGame.pdb
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\obj\Debug\SnakeGame.csprojResolveAssemblyReference.cache
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\obj\Debug\SnakeGame.dll
+C:\myCloset\Projects\Current\SnakeGame\SnakeGame\obj\Debug\SnakeGame.pdb
