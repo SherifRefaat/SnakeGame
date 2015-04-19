@@ -1,12 +1,15 @@
 ﻿/// <reference path="phaser.d.ts" />
 
-class SimpleGame {
+class Game {
     game: Phaser.Game;
     snake: SnakeGame;
     gameClock: Phaser.Timer;
 
+    static GameHeight: number = 800;
+    static GameWidth: number = 600;
+
     constructor() {
-        this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content',
+        this.game = new Phaser.Game(Game.GameHeight, Game.GameWidth, Phaser.AUTO, 'content',
             {
                 preload: this.preload.bind(this),
                 create: this.create.bind(this)
@@ -32,5 +35,5 @@ class SimpleGame {
 }
 
 window.onload = () => {
-    var game = new SimpleGame();
+    var game = new Game();
 };
