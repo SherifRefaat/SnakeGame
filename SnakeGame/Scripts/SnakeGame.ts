@@ -32,6 +32,7 @@
             (bead: Bead) =>
             {
                 bead.advanceX();
+                bead.advanceY();
             });
     }
 }

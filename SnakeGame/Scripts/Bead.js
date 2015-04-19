@@ -16,17 +16,21 @@ var Bead = (function () {
     Bead.prototype.advanceX = function (x) {
         this.x += (x === undefined) ? Bead.BeadSize : x;
         // check for boundary cross
-        if (this.x > Game.GameWidth) {
+        if (this.x >= Game.GameWidth) {
             this.x = 0;
         }
+        /*if (this.isHeadBead)
+            console.log('x: ' + this.x);*/
         this.sprite.position.set(this.x, this.y);
     };
     Bead.prototype.advanceY = function (y) {
         this.y += (y === undefined) ? Bead.BeadSize : y;
         // check for boundary cross
-        if (this.y > Game.GameHeight) {
+        if (this.y >= Game.GameHeight) {
             this.y = 0;
         }
+        /*if (this.isHeadBead)
+            console.log('y: ' + this.y);*/
         this.sprite.position.set(this.x, this.y);
     };
     Bead.HeadBead = 'Resources/HeadBead.png';

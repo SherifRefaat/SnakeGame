@@ -1,7 +1,7 @@
 /// <reference path="phaser.d.ts" />
 var Game = (function () {
     function Game() {
-        this.game = new Phaser.Game(Game.GameHeight, Game.GameWidth, Phaser.AUTO, 'content', {
+        this.game = new Phaser.Game(Game.GameWidth, Game.GameHeight, Phaser.AUTO, 'content', {
             preload: this.preload.bind(this),
             create: this.create.bind(this)
         });
@@ -19,8 +19,8 @@ var Game = (function () {
     Game.prototype.updateSnake = function () {
         this.snake.update(this.game);
     };
-    Game.GameHeight = 800;
-    Game.GameWidth = 600;
+    Game.GameHeight = 600;
+    Game.GameWidth = 810;
     return Game;
 })();
 window.onload = function () {

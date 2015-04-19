@@ -30,6 +30,7 @@ var SnakeGame = (function () {
         }
         this.snake.forEach(function (bead) {
             bead.advanceX();
+            bead.advanceY();
         });
     };
     return SnakeGame;
