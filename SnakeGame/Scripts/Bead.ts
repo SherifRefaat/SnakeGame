@@ -28,19 +28,25 @@
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     }
 
-    advance(xSpan:number, ySpan:number) {
-        this.x += xSpan;
-        this.y += ySpan;
+    advanceX(x?:number) {
+        this.x += (x === undefined) ? Bead.BeadSize : x;
+
+        // check for boundary cross
+        if (this.x > Game.GameWidth) {
+            this.x = 0;
+        }
+
         this.sprite.position.set(this.x, this.y);
     }
 
-    advanceX() {
-        this.x += Bead.BeadSize;
-        this.sprite.position.set(this.x, this.y);
-    }
+    advanceY(y?:number) {
+        this.y += (y === undefined) ? Bead.BeadSize : y;
 
-    advanceY() {
-        this.y += Bead.BeadSize;
+        // check for boundary cross
+        if (this.y > Game.GameHeight) {
+            this.y = 0;
+        }
+
         this.sprite.position.set(this.x, this.y);
     }
 }

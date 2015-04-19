@@ -1,3 +1,5 @@
 *.map
 *.map
 SnakeGame/Scripts/app.js.map
+*.suo
+SnakeGame/Scripts/app.js.map
