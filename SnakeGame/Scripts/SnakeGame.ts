@@ -18,7 +18,6 @@
 
     update(game: Phaser.Game) {
         var cursors = game.input.keyboard.createCursorKeys();
-
         if (cursors.down.justDown) {
             console.log('down');
         } else if (cursors.up.justDown) {
@@ -28,5 +27,11 @@
         } else if (cursors.left.justDown) {
             console.log('left');
         }
+
+        this.snake.forEach(
+            (bead: Bead) =>
+            {
+                bead.advanceX();
+            });
     }
 }

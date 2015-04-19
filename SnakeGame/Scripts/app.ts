@@ -3,28 +3,30 @@
 class SimpleGame {
     game: Phaser.Game;
     snake: SnakeGame;
+    gameClock: Phaser.Timer;
 
     constructor() {
         this.game = new Phaser.Game(800, 600, Phaser.AUTO, 'content',
             {
                 preload: this.preload.bind(this),
-                create: this.create.bind(this),
-                update: this.update.bind(this)
+                create: this.create.bind(this)
             });
         this.snake = new SnakeGame();
     }
 
     preload() {
-        //this.game.load.image('star', 'star.png');
         this.snake.preload(this.game);
     }
 
     create() {
-        //this.game.add.sprite(0, 0, 'star');
         this.snake.create(this.game);
+
+        this.gameClock = this.game.time.create(false);
+        this.gameClock.loop(1000, this.updateSnake, this, null);
+        this.gameClock.start();
     }
 
-    update() {
+    updateSnake() {
         this.snake.update(this.game);
     }
 }

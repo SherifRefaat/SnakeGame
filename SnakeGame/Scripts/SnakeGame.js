@@ -28,6 +28,9 @@ var SnakeGame = (function () {
         else if (cursors.left.justDown) {
             console.log('left');
         }
+        this.snake.forEach(function (bead) {
+            bead.advanceX();
+        });
     };
     return SnakeGame;
 })();
