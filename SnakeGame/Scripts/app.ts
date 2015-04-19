@@ -5,11 +5,11 @@ class Game {
     snake: SnakeGame;
     gameClock: Phaser.Timer;
 
-    static GameHeight: number = 800;
-    static GameWidth: number = 600;
+    static GameHeight: number = 600;
+    static GameWidth: number = 810;
 
     constructor() {
-        this.game = new Phaser.Game(Game.GameHeight, Game.GameWidth, Phaser.AUTO, 'content',
+        this.game = new Phaser.Game(Game.GameWidth, Game.GameHeight, Phaser.AUTO, 'content',
             {
                 preload: this.preload.bind(this),
                 create: this.create.bind(this)
