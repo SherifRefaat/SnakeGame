@@ -13,17 +13,20 @@ var Bead = (function () {
     Bead.prototype.addToGame = function (game) {
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     };
-    Bead.prototype.advance = function (xSpan, ySpan) {
-        this.x += xSpan;
-        this.y += ySpan;
+    Bead.prototype.advanceX = function (x) {
+        this.x += (x === undefined) ? Bead.BeadSize : x;
+        // check for boundary cross
+        if (this.x > Game.GameWidth) {
+            this.x = 0;
+        }
         this.sprite.position.set(this.x, this.y);
     };
-    Bead.prototype.advanceX = function () {
-        this.x += Bead.BeadSize;
-        this.sprite.position.set(this.x, this.y);
-    };
-    Bead.prototype.advanceY = function () {
-        this.y += Bead.BeadSize;
+    Bead.prototype.advanceY = function (y) {
+        this.y += (y === undefined) ? Bead.BeadSize : y;
+        // check for boundary cross
+        if (this.y > Game.GameHeight) {
+            this.y = 0;
+        }
         this.sprite.position.set(this.x, this.y);
     };
     Bead.HeadBead = 'Resources/HeadBead.png';
