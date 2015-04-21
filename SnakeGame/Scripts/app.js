@@ -14,16 +14,14 @@ var Game = (function () {
     Game.prototype.create = function () {
         this.snake.create(this.game);
         this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(1000, this.updateSnake, this, null);
+        this.gameClock.loop(100, this.updateSnakeGame, this, null);
         this.gameClock.start();
     };
     Game.prototype.update = function () {
         this.snake.update(this.game);
     };
-    Game.prototype.updateSnake = function () {
+    Game.prototype.updateSnakeGame = function () {
         SnakeGame.snake.forEach(function (bead) {
-            /*bead.advanceX();
-            bead.advanceY();*/
             bead.move();
         });
     };

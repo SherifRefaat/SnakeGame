@@ -26,7 +26,7 @@ class Game {
         this.snake.create(this.game);
 
         this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(1000, this.updateSnake, this, null);
+        this.gameClock.loop(100, this.updateSnakeGame, this, null);
         this.gameClock.start();
     }
 
@@ -34,10 +34,8 @@ class Game {
         this.snake.update(this.game);
     }
 
-    updateSnake() {
+    updateSnakeGame() {
         SnakeGame.snake.forEach((bead: Bead) => {
-            /*bead.advanceX();
-            bead.advanceY();*/
             bead.move();
         });
     }

@@ -19,15 +19,16 @@ var SnakeGame = (function () {
         game.load.image(Bead.BodyBeadKey, Bead.BodyBead);
     };
     SnakeGame.prototype.create = function (game) {
-        for (var i = 0, span = 0; i < SnakeGame.snakeSize; i++, span += Bead.BeadSize) {
-            var bead = new Bead((i == SnakeGame.snakeSize - 1), 0 + span, 0, 2 /* Right */);
+        for (var i = 0, span = 0; i < SnakeGame.snakeSize; i++) {
+            var bead = new Bead((i == SnakeGame.snakeSize - 1), Bead.BeadSize * i, 0, 2 /* Right */);
             bead.addToGame(game);
             SnakeGame.snake.push(bead);
         }
-        // Reverse the array for simplicity
-        SnakeGame.snake = SnakeGame.snake.reverse();
-        for (var i = SnakeGame.snake.length - 1; i >= 0; i--)
-            SnakeGame.snake[i].nextBead = (i != 0) ? SnakeGame.snake[i - 1] : null;
+        // Set the bead pointer to the next bead, head will be null
+        var i = 0;
+        for (; i < SnakeGame.snakeSize - 1; i++)
+            SnakeGame.snake[i].nextBead = SnakeGame.snake[i + 1];
+        SnakeGame.snake[i].nextBead = null;
     };
     SnakeGame.prototype.update = function (game) {
         var cursors = game.input.keyboard.createCursorKeys();

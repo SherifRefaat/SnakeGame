@@ -26,18 +26,18 @@ class SnakeGame {
 
     create(game: Phaser.Game) {
         // Initial body contains 3 beads + the head bead
-        for (var i: number = 0, span: number = 0; i < SnakeGame.snakeSize; i++ , span += Bead.BeadSize) {
-            var bead = new Bead((i == SnakeGame.snakeSize - 1), 0 + span, 0, Direction.Right);
+        // 0:body  1:body  2:body  3:head  
+        for (var i: number = 0, span: number = 0; i < SnakeGame.snakeSize; i++) {
+            var bead = new Bead((i == SnakeGame.snakeSize - 1), Bead.BeadSize * i, 0, Direction.Right);
             bead.addToGame(game);
             SnakeGame.snake.push(bead);
         }
 
-        // Reverse the array for simplicity
-        SnakeGame.snake = SnakeGame.snake.reverse();
-
         // Set the bead pointer to the next bead, head will be null
-        for (var i: number = SnakeGame.snake.length - 1; i >= 0; i--)
-            SnakeGame.snake[i].nextBead = (i != 0) ? SnakeGame.snake[i - 1] : null;
+        var i: number = 0;
+        for (; i < SnakeGame.snakeSize - 1; i++)
+            SnakeGame.snake[i].nextBead = SnakeGame.snake[i + 1];
+        SnakeGame.snake[i].nextBead = null;
     }
 
     update(game: Phaser.Game) {

@@ -23,7 +23,7 @@ var Bead = (function () {
             this.direction = this.nextBead.direction;
         }
         var direction, span;
-        if (this.direction == Direction.Right || this.direction == Direction.Left) {
+        if (this.direction == 2 /* Right */ || this.direction == 3 /* Left */) {
             direction = DirectionMap[this.direction];
             span = Bead.BeadSize;
             this.x += direction * span;
@@ -35,7 +35,7 @@ var Bead = (function () {
             }
         }
         else {
-            direction = ((this.direction == Direction.Up || this.direction == Direction.Down) ? DirectionMap[this.direction] : 1);
+            direction = ((this.direction == 0 /* Up */ || this.direction == 1 /* Down */) ? DirectionMap[this.direction] : 1);
             span = Bead.BeadSize;
             this.y += direction * span;
             if (this.y >= Game.GameHeight) {
