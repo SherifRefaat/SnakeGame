@@ -2,7 +2,7 @@
 
 class Game {
     game: Phaser.Game;
-    snake: SnakeGame;
+    snakeGame: SnakeGame;
     gameClock: Phaser.Timer;
 
     static GameHeight: number = 600;
@@ -15,26 +15,26 @@ class Game {
                 create: this.create.bind(this),
                 update: this.update.bind(this)
             });
-        this.snake = new SnakeGame();
+        this.snakeGame = new SnakeGame();
     }
 
     preload() {
-        this.snake.preload(this.game);
+        this.snakeGame.preload(this.game);
     }
 
     create() {
-        this.snake.create(this.game);
+        this.snakeGame.create(this.game);
 
         this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(100, this.updateSnakeGame, this, null);
+        this.gameClock.loop(100, this.updateSnake, this, null);
         this.gameClock.start();
     }
 
     update() {
-        this.snake.update(this.game);
+        this.snakeGame.update(this.game);
     }
 
-    updateSnakeGame() {
+    updateSnake() {
         SnakeGame.snake.forEach((bead: Bead) => {
             bead.move();
         });

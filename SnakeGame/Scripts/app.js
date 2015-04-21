@@ -6,21 +6,21 @@ var Game = (function () {
             create: this.create.bind(this),
             update: this.update.bind(this)
         });
-        this.snake = new SnakeGame();
+        this.snakeGame = new SnakeGame();
     }
     Game.prototype.preload = function () {
-        this.snake.preload(this.game);
+        this.snakeGame.preload(this.game);
     };
     Game.prototype.create = function () {
-        this.snake.create(this.game);
+        this.snakeGame.create(this.game);
         this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(100, this.updateSnakeGame, this, null);
+        this.gameClock.loop(100, this.updateSnake, this, null);
         this.gameClock.start();
     };
     Game.prototype.update = function () {
-        this.snake.update(this.game);
+        this.snakeGame.update(this.game);
     };
-    Game.prototype.updateSnakeGame = function () {
+    Game.prototype.updateSnake = function () {
         SnakeGame.snake.forEach(function (bead) {
             bead.move();
         });
