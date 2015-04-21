@@ -1,15 +1,14 @@
-﻿/// <reference path="phaser.d.ts" />
-
-class Game {
+﻿class Application {
     game: Phaser.Game;
     snakeGame: SnakeGame;
     gameClock: Phaser.Timer;
 
     static GameHeight: number = 600;
     static GameWidth: number = 810;
+    static GameClockTick: number = 120;
 
     constructor() {
-        this.game = new Phaser.Game(Game.GameWidth, Game.GameHeight, Phaser.AUTO, 'content',
+        this.game = new Phaser.Game(Application.GameWidth, Application.GameHeight, Phaser.AUTO, 'content',
             {
                 preload: this.preload.bind(this),
                 create: this.create.bind(this),
@@ -26,21 +25,15 @@ class Game {
         this.snakeGame.create(this.game);
 
         this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(100, this.updateSnake, this, null);
+        this.gameClock.loop(Application.GameClockTick, this.snakeGame.updateSnake, this.snakeGame, null);
         this.gameClock.start();
     }
 
     update() {
         this.snakeGame.update(this.game);
     }
-
-    updateSnake() {
-        SnakeGame.snake.forEach((bead: Bead) => {
-            bead.move();
-        });
-    }
 }
 
 window.onload = () => {
-    var game = new Game();
+    var app = new Application();
 };

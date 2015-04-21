@@ -31,9 +31,9 @@
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     }
 
-    move() {
+    move(lastDirection: Direction) {
         if (this.isHeadBead) {
-            this.direction = SnakeGame.lastDirection;
+            this.direction = lastDirection;
         }
         else {
             this.direction = this.nextBead.direction;
@@ -46,10 +46,10 @@
             span = Bead.BeadSize;
             this.x += direction * span;
 
-            if (this.x >= Game.GameWidth) {
+            if (this.x >= Application.GameWidth) {
                 this.x = 0;
             } else if (this.x < 0) {
-                this.x = Game.GameWidth - Bead.BeadSize;
+                this.x = Application.GameWidth - Bead.BeadSize;
             }
 
         }
@@ -58,10 +58,10 @@
             span = Bead.BeadSize;
             this.y += direction * span;
 
-            if (this.y >= Game.GameHeight) {
+            if (this.y >= Application.GameHeight) {
                 this.y = 0;
             } else if (this.y < 0) {
-                this.y = Game.GameHeight - Bead.BeadSize;
+                this.y = Application.GameHeight - Bead.BeadSize;
             }
         }
 

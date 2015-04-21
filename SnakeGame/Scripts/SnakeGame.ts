@@ -14,10 +14,10 @@ var DirectionMap: number[] =
     ];
 
 class SnakeGame {
-    static snake: Bead[] = [];
-    static snakeSize: number = 4;
+    snake: Bead[] = [];
+    snakeSize: number = 4;
 
-    static lastDirection: Direction = Direction.Right;
+    lastDirection: Direction = Direction.Right;
 
     preload(game: Phaser.Game) {
         game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
@@ -28,32 +28,41 @@ class SnakeGame {
         var i: number;
         // Initial body contains 3 beads + the head bead
         // 0:body  1:body  2:body  3:head  ,for example.
-        for (i = 0; i < SnakeGame.snakeSize; i++) {
-            var bead = new Bead((i == SnakeGame.snakeSize - 1), Bead.BeadSize * i, 0, Direction.Right);
+        for (i = 0; i < this.snakeSize; i++) {
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSize * i, 0, Direction.Right);
             bead.addToGame(game);
-            SnakeGame.snake.push(bead);
+            this.snake.push(bead);
         }
 
         // Set the bead pointer to the next bead, head will be null
-        for (i = 0; i < SnakeGame.snakeSize - 1; i++)
-            SnakeGame.snake[i].nextBead = SnakeGame.snake[i + 1];
-        SnakeGame.snake[i].nextBead = null;
+        for (i = 0; i < this.snakeSize - 1; i++)
+            this.snake[i].nextBead = this.snake[i + 1];
+        this.snake[i].nextBead = null;
+
+        // Reversing the array for simplicity sake
+        this.snake = this.snake.reverse();
     }
 
     update(game: Phaser.Game) {
         var cursors = game.input.keyboard.createCursorKeys();
         if (cursors.down.justDown) {
             console.log('down');
-            SnakeGame.lastDirection = Direction.Down;
+            this.lastDirection = Direction.Down;
         } else if (cursors.up.justDown) {
             console.log('up');
-            SnakeGame.lastDirection = Direction.Up;
+            this.lastDirection = Direction.Up;
         } else if (cursors.right.justDown) {
             console.log('right');
-            SnakeGame.lastDirection = Direction.Right;
+            this.lastDirection = Direction.Right;
         } else if (cursors.left.justDown) {
             console.log('left');
-            SnakeGame.lastDirection = Direction.Left;
+            this.lastDirection = Direction.Left;
+        }
+    }
+
+    updateSnake() {
+        for (var i: number = this.snakeSize - 1; i >= 0; i--) {
+            this.snake[i].move(this.lastDirection);
         }
     }
 }

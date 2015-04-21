@@ -14,10 +14,9 @@ var Bead = (function () {
     Bead.prototype.addToGame = function (game) {
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     };
-    Bead.prototype.move = function () {
-        // Update direction from next bead or from the game last direction inputed as a head bead
+    Bead.prototype.move = function (lastDirection) {
         if (this.isHeadBead) {
-            this.direction = SnakeGame.lastDirection;
+            this.direction = lastDirection;
         }
         else {
             this.direction = this.nextBead.direction;
@@ -27,22 +26,22 @@ var Bead = (function () {
             direction = DirectionMap[this.direction];
             span = Bead.BeadSize;
             this.x += direction * span;
-            if (this.x >= Game.GameWidth) {
+            if (this.x >= Application.GameWidth) {
                 this.x = 0;
             }
             else if (this.x < 0) {
-                this.x = Game.GameWidth - Bead.BeadSize;
+                this.x = Application.GameWidth - Bead.BeadSize;
             }
         }
         else {
             direction = ((this.direction == 0 /* Up */ || this.direction == 1 /* Down */) ? DirectionMap[this.direction] : 1);
             span = Bead.BeadSize;
             this.y += direction * span;
-            if (this.y >= Game.GameHeight) {
+            if (this.y >= Application.GameHeight) {
                 this.y = 0;
             }
             else if (this.y < 0) {
-                this.y = Game.GameHeight - Bead.BeadSize;
+                this.y = Application.GameHeight - Bead.BeadSize;
             }
         }
         /*if (this.isHeadBead)

@@ -13,6 +13,9 @@ var DirectionMap = [
 ];
 var SnakeGame = (function () {
     function SnakeGame() {
+        this.snake = [];
+        this.snakeSize = 4;
+        this.lastDirection = 2 /* Right */;
     }
     SnakeGame.prototype.preload = function (game) {
         game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
@@ -20,37 +23,41 @@ var SnakeGame = (function () {
     };
     SnakeGame.prototype.create = function (game) {
         var i;
-        for (i = 0; i < SnakeGame.snakeSize; i++) {
-            var bead = new Bead((i == SnakeGame.snakeSize - 1), Bead.BeadSize * i, 0, 2 /* Right */);
+        for (i = 0; i < this.snakeSize; i++) {
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSize * i, 0, 2 /* Right */);
             bead.addToGame(game);
-            SnakeGame.snake.push(bead);
+            this.snake.push(bead);
         }
-        for (i = 0; i < SnakeGame.snakeSize - 1; i++)
-            SnakeGame.snake[i].nextBead = SnakeGame.snake[i + 1];
-        SnakeGame.snake[i].nextBead = null;
+        for (i = 0; i < this.snakeSize - 1; i++)
+            this.snake[i].nextBead = this.snake[i + 1];
+        this.snake[i].nextBead = null;
+        // Reversing the array for simplicity sake
+        this.snake = this.snake.reverse();
     };
     SnakeGame.prototype.update = function (game) {
         var cursors = game.input.keyboard.createCursorKeys();
         if (cursors.down.justDown) {
             console.log('down');
-            SnakeGame.lastDirection = 1 /* Down */;
+            this.lastDirection = 1 /* Down */;
         }
         else if (cursors.up.justDown) {
             console.log('up');
-            SnakeGame.lastDirection = 0 /* Up */;
+            this.lastDirection = 0 /* Up */;
         }
         else if (cursors.right.justDown) {
             console.log('right');
-            SnakeGame.lastDirection = 2 /* Right */;
+            this.lastDirection = 2 /* Right */;
         }
         else if (cursors.left.justDown) {
             console.log('left');
-            SnakeGame.lastDirection = 3 /* Left */;
+            this.lastDirection = 3 /* Left */;
         }
     };
-    SnakeGame.snake = [];
-    SnakeGame.snakeSize = 4;
-    SnakeGame.lastDirection = 2 /* Right */;
+    SnakeGame.prototype.updateSnake = function () {
+        for (var i = this.snakeSize - 1; i >= 0; i--) {
+            this.snake[i].move(this.lastDirection);
+        }
+    };
     return SnakeGame;
 })();
 //# sourceMappingURL=SnakeGame.js.map
