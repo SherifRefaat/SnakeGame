@@ -32,7 +32,6 @@
     }
 
     move() {
-        // Update direction from next bead or from the game last direction inputed as a head bead
         if (this.isHeadBead) {
             this.direction = SnakeGame.lastDirection;
         }

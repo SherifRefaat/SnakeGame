@@ -25,24 +25,23 @@ class SnakeGame {
     }
 
     create(game: Phaser.Game) {
+        var i: number;
         // Initial body contains 3 beads + the head bead
-        // 0:body  1:body  2:body  3:head  
-        for (var i: number = 0, span: number = 0; i < SnakeGame.snakeSize; i++) {
+        // 0:body  1:body  2:body  3:head  ,for example.
+        for (i = 0; i < SnakeGame.snakeSize; i++) {
             var bead = new Bead((i == SnakeGame.snakeSize - 1), Bead.BeadSize * i, 0, Direction.Right);
             bead.addToGame(game);
             SnakeGame.snake.push(bead);
         }
 
         // Set the bead pointer to the next bead, head will be null
-        var i: number = 0;
-        for (; i < SnakeGame.snakeSize - 1; i++)
+        for (i = 0; i < SnakeGame.snakeSize - 1; i++)
             SnakeGame.snake[i].nextBead = SnakeGame.snake[i + 1];
         SnakeGame.snake[i].nextBead = null;
     }
 
     update(game: Phaser.Game) {
         var cursors = game.input.keyboard.createCursorKeys();
-        
         if (cursors.down.justDown) {
             console.log('down');
             SnakeGame.lastDirection = Direction.Down;
