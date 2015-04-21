@@ -7,8 +7,8 @@ var Direction;
 })(Direction || (Direction = {}));
 var DirectionMap = [
     -1,
-    1,
-    1,
+    +1,
+    +1,
     -1
 ];
 var SnakeGame = (function () {

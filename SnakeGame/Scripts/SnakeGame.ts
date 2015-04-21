@@ -8,8 +8,8 @@
 var DirectionMap: number[] =
     [
         -1, /* Up */
-        1,  /* Down */
-        1,  /* Right */
+        +1, /* Down */
+        +1, /* Right */
         -1  /* Left */
     ];
 
