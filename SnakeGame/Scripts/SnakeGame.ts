@@ -51,22 +51,18 @@ class SnakeGame {
             console.log('down');
             if (this.lastDirection != Direction.Up)
                 this.lastDirection = Direction.Down;
-            this.lastDirection = Direction.Down;
         } else if (cursors.up.justDown) {
             console.log('up');
             if (this.lastDirection != Direction.Down)
                 this.lastDirection = Direction.Up;
-            this.lastDirection = Direction.Up;
         } else if (cursors.right.justDown) {
             console.log('right');
             if (this.lastDirection != Direction.Left)
                 this.lastDirection = Direction.Right;
-            this.lastDirection = Direction.Right;
         } else if (cursors.left.justDown) {
             console.log('left');
             if (this.lastDirection != Direction.Right)
                 this.lastDirection = Direction.Left;
-            this.lastDirection = Direction.Left;
         }
     }
 

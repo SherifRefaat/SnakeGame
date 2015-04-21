@@ -41,25 +41,21 @@ var SnakeGame = (function () {
             console.log('down');
             if (this.lastDirection != 0 /* Up */)
                 this.lastDirection = 1 /* Down */;
-            this.lastDirection = 1 /* Down */;
         }
         else if (cursors.up.justDown) {
             console.log('up');
             if (this.lastDirection != 1 /* Down */)
                 this.lastDirection = 0 /* Up */;
-            this.lastDirection = 0 /* Up */;
         }
         else if (cursors.right.justDown) {
             console.log('right');
             if (this.lastDirection != 3 /* Left */)
                 this.lastDirection = 2 /* Right */;
-            this.lastDirection = 2 /* Right */;
         }
         else if (cursors.left.justDown) {
             console.log('left');
             if (this.lastDirection != 2 /* Right */)
                 this.lastDirection = 3 /* Left */;
-            this.lastDirection = 3 /* Left */;
         }
     };
     SnakeGame.prototype.updateSnake = function () {
