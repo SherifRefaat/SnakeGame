@@ -12,7 +12,8 @@ class Game {
         this.game = new Phaser.Game(Game.GameWidth, Game.GameHeight, Phaser.AUTO, 'content',
             {
                 preload: this.preload.bind(this),
-                create: this.create.bind(this)
+                create: this.create.bind(this),
+                update: this.update.bind(this)
             });
         this.snake = new SnakeGame();
     }
@@ -29,8 +30,16 @@ class Game {
         this.gameClock.start();
     }
 
-    updateSnake() {
+    update() {
         this.snake.update(this.game);
+    }
+
+    updateSnake() {
+        SnakeGame.snake.forEach((bead: Bead) => {
+            /*bead.advanceX();
+            bead.advanceY();*/
+            bead.move();
+        });
     }
 }
 

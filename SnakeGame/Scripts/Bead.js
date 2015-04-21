@@ -1,5 +1,5 @@
 var Bead = (function () {
-    function Bead(isHeadBead, x, y) {
+    function Bead(isHeadBead, x, y, direction) {
         this.isHeadBead = isHeadBead;
         if (this.isHeadBead) {
             this.spriteKey = Bead.HeadBeadKey;
@@ -9,28 +9,46 @@ var Bead = (function () {
         }
         this.x = x;
         this.y = y;
+        this.direction = direction;
     }
     Bead.prototype.addToGame = function (game) {
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     };
-    Bead.prototype.advanceX = function (x) {
-        this.x += (x === undefined) ? Bead.BeadSize : x;
-        // check for boundary cross
-        if (this.x >= Game.GameWidth) {
-            this.x = 0;
+    Bead.prototype.move = function () {
+        // Update direction from next bead or from the game last direction inputed as a head bead
+        if (this.isHeadBead) {
+            this.direction = SnakeGame.lastDirection;
+        }
+        else {
+            this.direction = this.nextBead.direction;
+        }
+        var direction, span;
+        if (this.direction == Direction.Right || this.direction == Direction.Left) {
+            direction = DirectionMap[this.direction];
+            span = Bead.BeadSize;
+            this.x += direction * span;
+            if (this.x >= Game.GameWidth) {
+                this.x = 0;
+            }
+            else if (this.x < 0) {
+                this.x = Game.GameWidth - Bead.BeadSize;
+            }
+        }
+        else {
+            direction = ((this.direction == Direction.Up || this.direction == Direction.Down) ? DirectionMap[this.direction] : 1);
+            span = Bead.BeadSize;
+            this.y += direction * span;
+            if (this.y >= Game.GameHeight) {
+                this.y = 0;
+            }
+            else if (this.y < 0) {
+                this.y = Game.GameHeight - Bead.BeadSize;
+            }
         }
         /*if (this.isHeadBead)
-            console.log('x: ' + this.x);*/
-        this.sprite.position.set(this.x, this.y);
-    };
-    Bead.prototype.advanceY = function (y) {
-        this.y += (y === undefined) ? Bead.BeadSize : y;
-        // check for boundary cross
-        if (this.y >= Game.GameHeight) {
-            this.y = 0;
-        }
-        /*if (this.isHeadBead)
-            console.log('y: ' + this.y);*/
+            console.log('x: ' + this.x);
+            console.log('y: ' + this.y);
+        */
         this.sprite.position.set(this.x, this.y);
     };
     Bead.HeadBead = 'Resources/HeadBead.png';

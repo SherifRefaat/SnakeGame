@@ -3,7 +3,8 @@ var Game = (function () {
     function Game() {
         this.game = new Phaser.Game(Game.GameWidth, Game.GameHeight, Phaser.AUTO, 'content', {
             preload: this.preload.bind(this),
-            create: this.create.bind(this)
+            create: this.create.bind(this),
+            update: this.update.bind(this)
         });
         this.snake = new SnakeGame();
     }
@@ -16,8 +17,15 @@ var Game = (function () {
         this.gameClock.loop(1000, this.updateSnake, this, null);
         this.gameClock.start();
     };
-    Game.prototype.updateSnake = function () {
+    Game.prototype.update = function () {
         this.snake.update(this.game);
+    };
+    Game.prototype.updateSnake = function () {
+        SnakeGame.snake.forEach(function (bead) {
+            /*bead.advanceX();
+            bead.advanceY();*/
+            bead.move();
+        });
     };
     Game.GameHeight = 600;
     Game.GameWidth = 810;
