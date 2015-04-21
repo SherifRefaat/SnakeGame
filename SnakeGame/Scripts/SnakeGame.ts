@@ -45,18 +45,24 @@ class SnakeGame {
 
     update(game: Phaser.Game) {
         var cursors = game.input.keyboard.createCursorKeys();
+
+        // Identify the key pressed direction and reject if it is a not allowed move
         if (cursors.down.justDown) {
             console.log('down');
-            this.lastDirection = Direction.Down;
+            if (this.lastDirection != Direction.Up)
+                this.lastDirection = Direction.Down;
         } else if (cursors.up.justDown) {
             console.log('up');
-            this.lastDirection = Direction.Up;
+            if (this.lastDirection != Direction.Down)
+                this.lastDirection = Direction.Up;
         } else if (cursors.right.justDown) {
             console.log('right');
-            this.lastDirection = Direction.Right;
+            if (this.lastDirection != Direction.Left)
+                this.lastDirection = Direction.Right;
         } else if (cursors.left.justDown) {
             console.log('left');
-            this.lastDirection = Direction.Left;
+            if (this.lastDirection != Direction.Right)
+                this.lastDirection = Direction.Left;
         }
     }
 
