@@ -15,9 +15,11 @@ var DirectionMap: number[] =
 
 class SnakeGame {
     snake: Bead[] = [];
-    snakeSize: number = 4;
+    snakeSize: number = 6;
 
     lastDirection: Direction = Direction.Right;
+
+    isGameOver: boolean = false;
 
     preload(game: Phaser.Game) {
         game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
@@ -44,6 +46,21 @@ class SnakeGame {
     }
 
     update(game: Phaser.Game) {
+        // Section removed to snakeUpdate to make the game respond to input in the right way
+    }
+
+    gameOver() {
+        console.log('collision detected');
+        this.isGameOver = true;
+        Application.gameClock.stop();
+        console.log('Game Over');
+    }
+
+    updateSnake(game: Phaser.Game) {
+        for (var i: number = this.snakeSize - 1; i >= 0; i--) {
+            this.snake[i].move(this.lastDirection);
+        }
+
         var cursors = game.input.keyboard.createCursorKeys();
 
         // Identify the key pressed direction and reject if it is a not allowed move
@@ -64,11 +81,16 @@ class SnakeGame {
             if (this.lastDirection != Direction.Right)
                 this.lastDirection = Direction.Left;
         }
-    }
 
-    updateSnake() {
-        for (var i: number = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].move(this.lastDirection);
+        var snakeHead = this.snake[0];
+
+        // Start at bead number 2 after the head bead,
+        // because it is not possible to collide with beads number 1 and 2.
+        for (var i: number = 2; i < this.snakeSize; i++) {
+            if (snakeHead.collideWith(this.snake[i])) {
+                this.gameOver();
+                return; // Game is over, no more processing here.
+            }
         }
     }
 }

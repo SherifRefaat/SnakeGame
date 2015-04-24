@@ -50,6 +50,9 @@ var Bead = (function () {
         */
         this.sprite.position.set(this.x, this.y);
     };
+    Bead.prototype.collideWith = function (otherBead) {
+        return this.x == otherBead.x && this.y == otherBead.y;
+    };
     Bead.HeadBead = 'Resources/HeadBead.png';
     Bead.HeadBeadKey = 'headBead';
     Bead.BodyBead = 'Resources/BodyBead.png';

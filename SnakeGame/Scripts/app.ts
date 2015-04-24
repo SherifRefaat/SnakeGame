@@ -1,11 +1,12 @@
 ﻿class Application {
     game: Phaser.Game;
     snakeGame: SnakeGame;
-    gameClock: Phaser.Timer;
+
+    static gameClock: Phaser.Timer;
 
     static GameHeight: number = 600;
     static GameWidth: number = 810;
-    static GameClockTick: number = 120;
+    static GameClockTick: number = 200;
 
     constructor() {
         this.game = new Phaser.Game(Application.GameWidth, Application.GameHeight, Phaser.AUTO, 'content',
@@ -24,13 +25,14 @@
     create() {
         this.snakeGame.create(this.game);
 
-        this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(Application.GameClockTick, this.snakeGame.updateSnake, this.snakeGame, null);
-        this.gameClock.start();
+        Application.gameClock = this.game.time.create(false);
+        Application.gameClock.loop(Application.GameClockTick, this.snakeGame.updateSnake, this.snakeGame, this.game);
+        Application.gameClock.start();
     }
 
     update() {
-        this.snakeGame.update(this.game);
+        if(!this.snakeGame.isGameOver)
+            this.snakeGame.update(this.game);
     }
 }
 

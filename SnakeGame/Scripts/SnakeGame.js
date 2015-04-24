@@ -14,8 +14,9 @@ var DirectionMap = [
 var SnakeGame = (function () {
     function SnakeGame() {
         this.snake = [];
-        this.snakeSize = 4;
+        this.snakeSize = 6;
         this.lastDirection = 2 /* Right */;
+        this.isGameOver = false;
     }
     SnakeGame.prototype.preload = function (game) {
         game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
@@ -35,6 +36,18 @@ var SnakeGame = (function () {
         this.snake = this.snake.reverse();
     };
     SnakeGame.prototype.update = function (game) {
+        // Section removed to snakeUpdate to make the game respond to input in the right way
+    };
+    SnakeGame.prototype.gameOver = function () {
+        console.log('collision detected');
+        this.isGameOver = true;
+        Application.gameClock.stop();
+        console.log('Game Over');
+    };
+    SnakeGame.prototype.updateSnake = function (game) {
+        for (var i = this.snakeSize - 1; i >= 0; i--) {
+            this.snake[i].move(this.lastDirection);
+        }
         var cursors = game.input.keyboard.createCursorKeys();
         // Identify the key pressed direction and reject if it is a not allowed move
         if (cursors.down.justDown) {
@@ -57,10 +70,12 @@ var SnakeGame = (function () {
             if (this.lastDirection != 2 /* Right */)
                 this.lastDirection = 3 /* Left */;
         }
-    };
-    SnakeGame.prototype.updateSnake = function () {
-        for (var i = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].move(this.lastDirection);
+        var snakeHead = this.snake[0];
+        for (var i = 2; i < this.snakeSize; i++) {
+            if (snakeHead.collideWith(this.snake[i])) {
+                this.gameOver();
+                return; // Game is over, no more processing here.
+            }
         }
     };
     return SnakeGame;

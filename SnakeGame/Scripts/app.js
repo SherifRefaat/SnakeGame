@@ -12,16 +12,17 @@ var Application = (function () {
     };
     Application.prototype.create = function () {
         this.snakeGame.create(this.game);
-        this.gameClock = this.game.time.create(false);
-        this.gameClock.loop(Application.GameClockTick, this.snakeGame.updateSnake, this.snakeGame, null);
-        this.gameClock.start();
+        Application.gameClock = this.game.time.create(false);
+        Application.gameClock.loop(Application.GameClockTick, this.snakeGame.updateSnake, this.snakeGame, this.game);
+        Application.gameClock.start();
     };
     Application.prototype.update = function () {
-        this.snakeGame.update(this.game);
+        if (!this.snakeGame.isGameOver)
+            this.snakeGame.update(this.game);
     };
     Application.GameHeight = 600;
     Application.GameWidth = 810;
-    Application.GameClockTick = 120;
+    Application.GameClockTick = 200;
     return Application;
 })();
 window.onload = function () {
