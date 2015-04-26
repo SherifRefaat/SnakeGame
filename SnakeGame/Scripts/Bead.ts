@@ -1,9 +1,9 @@
 ﻿class Bead {
-    static HeadBead: string = 'Resources/HeadBead.png';
-    static HeadBeadKey: string = 'headBead';
-    static BodyBead: string = 'Resources/BodyBead.png';
-    static BodyBeadKey: string = 'bodyBead';
-    static BeadSize: number = 30;
+    static HeadBeadSprite: string = 'Resources/HeadBead.png';
+    static HeadBeadSpriteKey: string = 'headBead';
+    static BodyBeadSprite: string = 'Resources/BodyBead.png';
+    static BodyBeadSpriteKey: string = 'bodyBead';
+    static BeadSpriteSize: number = 30; /* Beads are squares */
 
     sprite: Phaser.Sprite;
     spriteKey: string;
@@ -16,9 +16,9 @@
     constructor(isHeadBead: boolean, x: number, y: number, direction: Direction) {
         this.isHeadBead = isHeadBead;
         if (this.isHeadBead) {
-            this.spriteKey = Bead.HeadBeadKey;
+            this.spriteKey = Bead.HeadBeadSpriteKey;
         } else {
-            this.spriteKey = Bead.BodyBeadKey;
+            this.spriteKey = Bead.BodyBeadSpriteKey;
         }
 
         this.x = x;
@@ -43,25 +43,25 @@
 
         if (this.direction == Direction.Right || this.direction == Direction.Left) {
             direction = DirectionMap[this.direction];
-            span = Bead.BeadSize;
+            span = Bead.BeadSpriteSize;
             this.x += direction * span;
 
             if (this.x >= Application.GameWidth) {
                 this.x = 0;
             } else if (this.x < 0) {
-                this.x = Application.GameWidth - Bead.BeadSize;
+                this.x = Application.GameWidth - Bead.BeadSpriteSize;
             }
 
         }
         else {
             direction = ((this.direction == Direction.Up || this.direction == Direction.Down) ? DirectionMap[this.direction] : 1);
-            span = Bead.BeadSize;
+            span = Bead.BeadSpriteSize;
             this.y += direction * span;
 
             if (this.y >= Application.GameHeight) {
                 this.y = 0;
             } else if (this.y < 0) {
-                this.y = Application.GameHeight - Bead.BeadSize;
+                this.y = Application.GameHeight - Bead.BeadSpriteSize;
             }
         }
 

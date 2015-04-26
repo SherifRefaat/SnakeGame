@@ -19,13 +19,14 @@ var SnakeGame = (function () {
         this.isGameOver = false;
     }
     SnakeGame.prototype.preload = function (game) {
-        game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
-        game.load.image(Bead.BodyBeadKey, Bead.BodyBead);
+        game.load.image(Bead.HeadBeadSpriteKey, Bead.HeadBeadSprite);
+        game.load.image(Bead.BodyBeadSpriteKey, Bead.BodyBeadSprite);
+        game.load.image(Prey.PreySpriteKey, Prey.PreySprite);
     };
     SnakeGame.prototype.create = function (game) {
         var i;
         for (i = 0; i < this.snakeSize; i++) {
-            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSize * i, 0, 2 /* Right */);
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, 2 /* Right */);
             bead.addToGame(game);
             this.snake.push(bead);
         }
@@ -34,6 +35,9 @@ var SnakeGame = (function () {
         this.snake[i].nextBead = null;
         // Reversing the array for simplicity sake
         this.snake = this.snake.reverse();
+        // Defining the prey
+        var preyX = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
+        this.prey = new Prey(preyX, 0, game);
     };
     SnakeGame.prototype.update = function (game) {
         // Section removed to snakeUpdate to make the game respond to input in the right way

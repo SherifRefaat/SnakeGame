@@ -17,13 +17,16 @@ class SnakeGame {
     snake: Bead[] = [];
     snakeSize: number = 6;
 
+    prey: Prey;
+
     lastDirection: Direction = Direction.Right;
 
     isGameOver: boolean = false;
 
     preload(game: Phaser.Game) {
-        game.load.image(Bead.HeadBeadKey, Bead.HeadBead);
-        game.load.image(Bead.BodyBeadKey, Bead.BodyBead);
+        game.load.image(Bead.HeadBeadSpriteKey, Bead.HeadBeadSprite);
+        game.load.image(Bead.BodyBeadSpriteKey, Bead.BodyBeadSprite);
+        game.load.image(Prey.PreySpriteKey, Prey.PreySprite);
     }
 
     create(game: Phaser.Game) {
@@ -31,7 +34,7 @@ class SnakeGame {
         // Initial body contains 3 beads + the head bead
         // 0:body  1:body  2:body  3:head  ,for example.
         for (i = 0; i < this.snakeSize; i++) {
-            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSize * i, 0, Direction.Right);
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, Direction.Right);
             bead.addToGame(game);
             this.snake.push(bead);
         }
@@ -43,6 +46,10 @@ class SnakeGame {
 
         // Reversing the array for simplicity sake
         this.snake = this.snake.reverse();
+
+        // Defining the prey
+        var preyX: number = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
+        this.prey = new Prey(preyX, 0, game);
     }
 
     update(game: Phaser.Game) {

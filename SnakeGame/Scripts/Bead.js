@@ -2,10 +2,10 @@ var Bead = (function () {
     function Bead(isHeadBead, x, y, direction) {
         this.isHeadBead = isHeadBead;
         if (this.isHeadBead) {
-            this.spriteKey = Bead.HeadBeadKey;
+            this.spriteKey = Bead.HeadBeadSpriteKey;
         }
         else {
-            this.spriteKey = Bead.BodyBeadKey;
+            this.spriteKey = Bead.BodyBeadSpriteKey;
         }
         this.x = x;
         this.y = y;
@@ -24,24 +24,24 @@ var Bead = (function () {
         var direction, span;
         if (this.direction == 2 /* Right */ || this.direction == 3 /* Left */) {
             direction = DirectionMap[this.direction];
-            span = Bead.BeadSize;
+            span = Bead.BeadSpriteSize;
             this.x += direction * span;
             if (this.x >= Application.GameWidth) {
                 this.x = 0;
             }
             else if (this.x < 0) {
-                this.x = Application.GameWidth - Bead.BeadSize;
+                this.x = Application.GameWidth - Bead.BeadSpriteSize;
             }
         }
         else {
             direction = ((this.direction == 0 /* Up */ || this.direction == 1 /* Down */) ? DirectionMap[this.direction] : 1);
-            span = Bead.BeadSize;
+            span = Bead.BeadSpriteSize;
             this.y += direction * span;
             if (this.y >= Application.GameHeight) {
                 this.y = 0;
             }
             else if (this.y < 0) {
-                this.y = Application.GameHeight - Bead.BeadSize;
+                this.y = Application.GameHeight - Bead.BeadSpriteSize;
             }
         }
         /*if (this.isHeadBead)
@@ -53,11 +53,11 @@ var Bead = (function () {
     Bead.prototype.collideWith = function (otherBead) {
         return this.x == otherBead.x && this.y == otherBead.y;
     };
-    Bead.HeadBead = 'Resources/HeadBead.png';
-    Bead.HeadBeadKey = 'headBead';
-    Bead.BodyBead = 'Resources/BodyBead.png';
-    Bead.BodyBeadKey = 'bodyBead';
-    Bead.BeadSize = 30;
+    Bead.HeadBeadSprite = 'Resources/HeadBead.png';
+    Bead.HeadBeadSpriteKey = 'headBead';
+    Bead.BodyBeadSprite = 'Resources/BodyBead.png';
+    Bead.BodyBeadSpriteKey = 'bodyBead';
+    Bead.BeadSpriteSize = 30; /* Beads are squares */
     return Bead;
 })();
 //# sourceMappingURL=Bead.js.map

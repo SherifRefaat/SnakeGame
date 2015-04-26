@@ -31,6 +31,7 @@
     <TypeScriptCompile Include="Scripts\p2.d.ts" />
     <TypeScriptCompile Include="Scripts\phaser.d.ts" />
     <TypeScriptCompile Include="Scripts\pixi.d.ts" />
+    <TypeScriptCompile Include="Scripts\Prey.ts" />
     <TypeScriptCompile Include="Scripts\SnakeGame.ts" />
   </ItemGroup>
   <ItemGroup>
