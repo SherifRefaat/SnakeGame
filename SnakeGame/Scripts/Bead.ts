@@ -13,7 +13,7 @@
     direction: Direction;
     nextBead: Bead;
 
-    movement;
+    move;
 
     constructor(isHeadBead: boolean, x: number, y: number, direction: Direction, isStillBead: boolean) {
         this.isHeadBead = isHeadBead;
@@ -29,10 +29,10 @@
         this.direction = direction;
 
         if (isStillBead) {
-            this.movement = () => { this.stillMove(); };
+            this.move = () => { this.stillMove(); };
         }
         else {
-            this.movement = (lastDirection: Direction) => { this.normalMove(lastDirection); };
+            this.move = (lastDirection: Direction) => { this.normalMove(lastDirection); };
         }
     }
 
@@ -41,8 +41,8 @@
     }
 
     stillMove() {
-        // Pass this turn and set the moving movement method to next call
-        this.movement = (lastDirection: Direction) => { this.normalMove(lastDirection); };
+        // Pass this turn and set the moving move method to next call
+        this.move = (lastDirection: Direction) => { this.normalMove(lastDirection); };
     }
 
     normalMove(lastDirection: Direction) {

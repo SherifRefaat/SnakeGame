@@ -12,12 +12,12 @@ var Bead = (function () {
         this.y = y;
         this.direction = direction;
         if (isStillBead) {
-            this.movement = function () {
+            this.move = function () {
                 _this.stillMove();
             };
         }
         else {
-            this.movement = function (lastDirection) {
+            this.move = function (lastDirection) {
                 _this.normalMove(lastDirection);
             };
         }
@@ -27,8 +27,8 @@ var Bead = (function () {
     };
     Bead.prototype.stillMove = function () {
         var _this = this;
-        // Pass this turn and set the moving movement method to next call
-        this.movement = function (lastDirection) {
+        // Pass this turn and set the moving move method to next call
+        this.move = function (lastDirection) {
             _this.normalMove(lastDirection);
         };
     };
@@ -40,7 +40,7 @@ var Bead = (function () {
             this.direction = this.nextBead.direction;
         }
         var direction, span;
-        if (this.direction == Direction.Right || this.direction == Direction.Left) {
+        if (this.direction == 2 /* Right */ || this.direction == 3 /* Left */) {
             direction = DirectionMap[this.direction];
             span = Bead.BeadSpriteSize;
             this.x += direction * span;
@@ -52,7 +52,7 @@ var Bead = (function () {
             }
         }
         else {
-            direction = ((this.direction == Direction.Up || this.direction == Direction.Down) ? DirectionMap[this.direction] : 1);
+            direction = ((this.direction == 0 /* Up */ || this.direction == 1 /* Down */) ? DirectionMap[this.direction] : 1);
             span = Bead.BeadSpriteSize;
             this.y += direction * span;
             if (this.y >= Application.GameHeight) {

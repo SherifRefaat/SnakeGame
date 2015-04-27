@@ -69,7 +69,7 @@ class SnakeGame {
 
     updateSnake(game: Phaser.Game) {
         for (var i: number = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].movement(this.lastDirection);
+            this.snake[i].move(this.lastDirection);
         }
 
         var cursors = game.input.keyboard.createCursorKeys();
@@ -125,6 +125,7 @@ class SnakeGame {
     gameOver() {
         this.isGameOver = true;
         Application.gameClock.stop();
+        this.textRender.x = Application.GameWidth / 6;
         this.textRender.setText('Game Over');
     }
 

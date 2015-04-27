@@ -49,7 +49,7 @@ var SnakeGame = (function () {
     };
     SnakeGame.prototype.updateSnake = function (game) {
         for (var i = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].movement(this.lastDirection);
+            this.snake[i].move(this.lastDirection);
         }
         var cursors = game.input.keyboard.createCursorKeys();
         // Identify the key pressed direction and reject if it is a not allowed move
@@ -97,6 +97,7 @@ var SnakeGame = (function () {
     SnakeGame.prototype.gameOver = function () {
         this.isGameOver = true;
         Application.gameClock.stop();
+        this.textRender.x = Application.GameWidth / 6;
         this.textRender.setText('Game Over');
     };
     SnakeGame.prototype.updateScore = function () {
