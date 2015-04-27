@@ -18,7 +18,7 @@ var Bead = (function () {
         }
         else {
             this.movement = function (lastDirection) {
-                _this.move(lastDirection);
+                _this.normalMove(lastDirection);
             };
         }
     }
@@ -29,10 +29,10 @@ var Bead = (function () {
         var _this = this;
         // Pass this turn and set the moving movement method to next call
         this.movement = function (lastDirection) {
-            _this.move(lastDirection);
+            _this.normalMove(lastDirection);
         };
     };
-    Bead.prototype.move = function (lastDirection) {
+    Bead.prototype.normalMove = function (lastDirection) {
         if (this.isHeadBead) {
             this.direction = lastDirection;
         }

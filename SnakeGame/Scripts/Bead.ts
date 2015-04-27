@@ -32,7 +32,7 @@
             this.movement = () => { this.stillMove(); };
         }
         else {
-            this.movement = (lastDirection: Direction) => { this.move(lastDirection); };
+            this.movement = (lastDirection: Direction) => { this.normalMove(lastDirection); };
         }
     }
 
