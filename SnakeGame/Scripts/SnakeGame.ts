@@ -25,6 +25,8 @@ class SnakeGame {
 
     score: number = 0;
 
+    textRender: Phaser.Text;
+
     preload(game: Phaser.Game) {
         game.load.image(Bead.HeadBeadSpriteKey, Bead.HeadBeadSprite);
         game.load.image(Bead.BodyBeadSpriteKey, Bead.BodyBeadSprite);
@@ -53,7 +55,13 @@ class SnakeGame {
         var preyX: number = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
         this.prey = new Prey(preyX, 0, game);
 
-        Application.printScreen(this.score);
+        this.textRender = game.add.text(
+            Application.GameWidth / 2 - 50, Application.GameHeight / 2 - 50, this.score.toString(),
+            {
+                fontSize: "100px",
+                fill: "#FFF",
+                align: "center"
+            });
     }
 
     update(game: Phaser.Game) {
@@ -101,7 +109,7 @@ class SnakeGame {
 
     preyConsumed() {
         this.score += 5;
-        Application.printScreen(this.score);
+        this.updateScore();
 
         // Prepare the next Prey location
         this.calculateNewPreyPosition();
@@ -110,7 +118,11 @@ class SnakeGame {
     gameOver() {
         this.isGameOver = true;
         Application.gameClock.stop();
-        Application.printScreen('Game Over');
+        this.textRender.setText('Game Over');
+    }
+
+    updateScore() {
+        this.textRender.setText(this.score.toString());
     }
 
     calculateNewPreyPosition() {

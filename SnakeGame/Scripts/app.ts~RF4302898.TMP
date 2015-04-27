@@ -8,6 +8,10 @@
     static GameWidth: number = 810;
     static GameClockTick: number = 100;
 
+    static ScoreElementId: string = 'score';
+
+    text : Phaser.Text = null;
+
     constructor() {
         this.game = new Phaser.Game(Application.GameWidth, Application.GameHeight, Phaser.AUTO, 'content',
             {
@@ -16,6 +20,18 @@
                 update: this.update.bind(this)
             });
         this.snakeGame = new SnakeGame();
+
+        this.text = this.game.add.text(
+            100,
+            100,
+            "",
+            {
+                size: "32px",
+                fill: "#FFF",
+                align: "center"
+            }
+            );
+        this.scoreText.setText("TOUCH TO\nSTART GAME");
     }
 
     preload() {
@@ -33,6 +49,10 @@
     update() {
         if(!this.snakeGame.isGameOver)
             this.snakeGame.update(this.game);
+    }
+
+    static printScreen(msg: string | number) {
+        //document.getElementById(Application.ScoreElementId).innerText = msg.toString();
     }
 }
 

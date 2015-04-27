@@ -39,7 +39,11 @@ var SnakeGame = (function () {
         // Defining the prey
         var preyX = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
         this.prey = new Prey(preyX, 0, game);
-        Application.printScreen(this.score);
+        this.textRender = game.add.text(Application.GameWidth / 2 - 50, Application.GameHeight / 2 - 50, this.score.toString(), {
+            fontSize: "100px",
+            fill: "#FFF",
+            align: "center"
+        });
     };
     SnakeGame.prototype.update = function (game) {
         // Section removed to snakeUpdate to make the game respond to input in the right way
@@ -80,14 +84,17 @@ var SnakeGame = (function () {
     };
     SnakeGame.prototype.preyConsumed = function () {
         this.score += 5;
-        Application.printScreen(this.score);
+        this.updateScore();
         // Prepare the next Prey location
         this.calculateNewPreyPosition();
     };
     SnakeGame.prototype.gameOver = function () {
         this.isGameOver = true;
         Application.gameClock.stop();
-        Application.printScreen('Game Over');
+        this.textRender.setText('Game Over');
+    };
+    SnakeGame.prototype.updateScore = function () {
+        this.textRender.setText(this.score.toString());
     };
     SnakeGame.prototype.calculateNewPreyPosition = function () {
         var x, y;

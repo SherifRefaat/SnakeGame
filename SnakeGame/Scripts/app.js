@@ -20,13 +20,9 @@ var Application = (function () {
         if (!this.snakeGame.isGameOver)
             this.snakeGame.update(this.game);
     };
-    Application.printScreen = function (msg) {
-        document.getElementById(Application.ScoreElementId).innerText = msg.toString();
-    };
     Application.GameHeight = 600;
     Application.GameWidth = 810;
-    Application.GameClockTick = 150;
-    Application.ScoreElementId = 'score';
+    Application.GameClockTick = 100;
     return Application;
 })();
 window.onload = function () {
