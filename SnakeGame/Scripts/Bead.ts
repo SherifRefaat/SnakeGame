@@ -72,7 +72,7 @@
         this.sprite.position.set(this.x, this.y);
     }
 
-    collideWith(otherBead: Bead): boolean {
-        return this.x == otherBead.x && this.y == otherBead.y;
+    collideWith(otherSprite: Bead | Prey): boolean {
+        return this.x == otherSprite.x && this.y == otherSprite.y;
     }
 }

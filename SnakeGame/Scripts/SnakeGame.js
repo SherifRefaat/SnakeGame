@@ -17,6 +17,7 @@ var SnakeGame = (function () {
         this.snakeSize = 6;
         this.lastDirection = 2 /* Right */;
         this.isGameOver = false;
+        this.score = 0;
     }
     SnakeGame.prototype.preload = function (game) {
         game.load.image(Bead.HeadBeadSpriteKey, Bead.HeadBeadSprite);
@@ -38,15 +39,10 @@ var SnakeGame = (function () {
         // Defining the prey
         var preyX = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
         this.prey = new Prey(preyX, 0, game);
+        Application.printScreen(this.score);
     };
     SnakeGame.prototype.update = function (game) {
         // Section removed to snakeUpdate to make the game respond to input in the right way
-    };
-    SnakeGame.prototype.gameOver = function () {
-        console.log('collision detected');
-        this.isGameOver = true;
-        Application.gameClock.stop();
-        console.log('Game Over');
     };
     SnakeGame.prototype.updateSnake = function (game) {
         for (var i = this.snakeSize - 1; i >= 0; i--) {
@@ -55,22 +51,18 @@ var SnakeGame = (function () {
         var cursors = game.input.keyboard.createCursorKeys();
         // Identify the key pressed direction and reject if it is a not allowed move
         if (cursors.down.justDown) {
-            console.log('down');
             if (this.lastDirection != 0 /* Up */)
                 this.lastDirection = 1 /* Down */;
         }
         else if (cursors.up.justDown) {
-            console.log('up');
             if (this.lastDirection != 1 /* Down */)
                 this.lastDirection = 0 /* Up */;
         }
         else if (cursors.right.justDown) {
-            console.log('right');
             if (this.lastDirection != 3 /* Left */)
                 this.lastDirection = 2 /* Right */;
         }
         else if (cursors.left.justDown) {
-            console.log('left');
             if (this.lastDirection != 2 /* Right */)
                 this.lastDirection = 3 /* Left */;
         }
@@ -81,6 +73,20 @@ var SnakeGame = (function () {
                 return; // Game is over, no more processing here.
             }
         }
+        // Check for collision with the Prey
+        if (snakeHead.collideWith(this.prey)) {
+            this.prey.nextPosition();
+            this.preyConsumed();
+        }
+    };
+    SnakeGame.prototype.preyConsumed = function () {
+        this.score += 5;
+        Application.printScreen(this.score);
+    };
+    SnakeGame.prototype.gameOver = function () {
+        this.isGameOver = true;
+        Application.gameClock.stop();
+        Application.printScreen('Game Over');
     };
     return SnakeGame;
 })();

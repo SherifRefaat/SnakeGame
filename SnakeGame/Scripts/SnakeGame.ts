@@ -23,6 +23,8 @@ class SnakeGame {
 
     isGameOver: boolean = false;
 
+    score: number = 0;
+
     preload(game: Phaser.Game) {
         game.load.image(Bead.HeadBeadSpriteKey, Bead.HeadBeadSprite);
         game.load.image(Bead.BodyBeadSpriteKey, Bead.BodyBeadSprite);
@@ -50,17 +52,12 @@ class SnakeGame {
         // Defining the prey
         var preyX: number = (this.snakeSize * 2 * Bead.BeadSpriteSize) % Application.GameWidth;
         this.prey = new Prey(preyX, 0, game);
+
+        Application.printScreen(this.score);
     }
 
     update(game: Phaser.Game) {
         // Section removed to snakeUpdate to make the game respond to input in the right way
-    }
-
-    gameOver() {
-        console.log('collision detected');
-        this.isGameOver = true;
-        Application.gameClock.stop();
-        console.log('Game Over');
     }
 
     updateSnake(game: Phaser.Game) {
@@ -72,19 +69,15 @@ class SnakeGame {
 
         // Identify the key pressed direction and reject if it is a not allowed move
         if (cursors.down.justDown) {
-            console.log('down');
             if (this.lastDirection != Direction.Up)
                 this.lastDirection = Direction.Down;
         } else if (cursors.up.justDown) {
-            console.log('up');
             if (this.lastDirection != Direction.Down)
                 this.lastDirection = Direction.Up;
         } else if (cursors.right.justDown) {
-            console.log('right');
             if (this.lastDirection != Direction.Left)
                 this.lastDirection = Direction.Right;
         } else if (cursors.left.justDown) {
-            console.log('left');
             if (this.lastDirection != Direction.Right)
                 this.lastDirection = Direction.Left;
         }
@@ -99,5 +92,24 @@ class SnakeGame {
                 return; // Game is over, no more processing here.
             }
         }
+
+        // Check for collision with the Prey
+        if (snakeHead.collideWith(this.prey)) {
+            this.prey.nextPosition();
+            this.preyConsumed();
+        }
+    }
+
+    preyConsumed() {
+        this.score += 5;
+
+        Application.printScreen(this.score);
+    }
+
+
+    gameOver() {
+        this.isGameOver = true;
+        Application.gameClock.stop();
+        Application.printScreen('Game Over');
     }
 }

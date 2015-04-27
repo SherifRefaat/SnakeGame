@@ -8,6 +8,8 @@
     static GameWidth: number = 810;
     static GameClockTick: number = 200;
 
+    static ScoreElementId: string = 'score';
+
     constructor() {
         this.game = new Phaser.Game(Application.GameWidth, Application.GameHeight, Phaser.AUTO, 'content',
             {
@@ -33,6 +35,10 @@
     update() {
         if(!this.snakeGame.isGameOver)
             this.snakeGame.update(this.game);
+    }
+
+    static printScreen(msg: string | number) {
+        document.getElementById(Application.ScoreElementId).innerText = msg.toString();
     }
 }
 
