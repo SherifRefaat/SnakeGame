@@ -27,7 +27,7 @@ var SnakeGame = (function () {
     SnakeGame.prototype.create = function (game) {
         var i;
         for (i = 0; i < this.snakeSize; i++) {
-            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, 2 /* Right */);
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, 2 /* Right */, false);
             bead.addToGame(game);
             this.snake.push(bead);
         }
@@ -41,8 +41,7 @@ var SnakeGame = (function () {
         this.prey = new Prey(preyX, 0, game);
         this.textRender = game.add.text(Application.GameWidth / 2 - 50, Application.GameHeight / 2 - 50, this.score.toString(), {
             fontSize: "100px",
-            fill: "#FFF",
-            align: "center"
+            fill: "#FFF"
         });
     };
     SnakeGame.prototype.update = function (game) {
@@ -50,7 +49,7 @@ var SnakeGame = (function () {
     };
     SnakeGame.prototype.updateSnake = function (game) {
         for (var i = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].move(this.lastDirection);
+            this.snake[i].movement(this.lastDirection);
         }
         var cursors = game.input.keyboard.createCursorKeys();
         // Identify the key pressed direction and reject if it is a not allowed move
@@ -79,12 +78,19 @@ var SnakeGame = (function () {
         }
         // Check for collision with the Prey
         if (snakeHead.collideWith(this.prey)) {
-            this.preyConsumed();
+            this.preyConsumed(game);
         }
     };
-    SnakeGame.prototype.preyConsumed = function () {
+    SnakeGame.prototype.preyConsumed = function (game) {
         this.score += 5;
         this.updateScore();
+        // Add new bead
+        var lastBead = this.snake[this.snakeSize - 1];
+        var newBead = new Bead(false, lastBead.x, lastBead.y, lastBead.direction, true);
+        newBead.nextBead = lastBead;
+        newBead.addToGame(game);
+        this.snake.push(newBead);
+        this.snakeSize++;
         // Prepare the next Prey location
         this.calculateNewPreyPosition();
     };

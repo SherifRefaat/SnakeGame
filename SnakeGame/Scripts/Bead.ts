@@ -13,7 +13,9 @@
     direction: Direction;
     nextBead: Bead;
 
-    constructor(isHeadBead: boolean, x: number, y: number, direction: Direction) {
+    movement;
+
+    constructor(isHeadBead: boolean, x: number, y: number, direction: Direction, isStillBead: boolean) {
         this.isHeadBead = isHeadBead;
         if (this.isHeadBead) {
             this.spriteKey = Bead.HeadBeadSpriteKey;
@@ -25,13 +27,25 @@
         this.y = y;
 
         this.direction = direction;
+
+        if (isStillBead) {
+            this.movement = () => { this.stillMove(); };
+        }
+        else {
+            this.movement = (lastDirection: Direction) => { this.move(lastDirection); };
+        }
     }
 
     addToGame(game: Phaser.Game) {
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
     }
 
-    move(lastDirection: Direction) {
+    stillMove() {
+        // Pass this turn and set the moving movement method to next call
+        this.movement = (lastDirection: Direction) => { this.normalMove(lastDirection); };
+    }
+
+    normalMove(lastDirection: Direction) {
         if (this.isHeadBead) {
             this.direction = lastDirection;
         }

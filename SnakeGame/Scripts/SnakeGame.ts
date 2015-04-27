@@ -38,7 +38,7 @@ class SnakeGame {
         // Initial body contains 3 beads + the head bead
         // 0:body  1:body  2:body  3:head  ,for example.
         for (i = 0; i < this.snakeSize; i++) {
-            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, Direction.Right);
+            var bead = new Bead((i == this.snakeSize - 1), Bead.BeadSpriteSize * i, 0, Direction.Right, false);
             bead.addToGame(game);
             this.snake.push(bead);
         }
@@ -59,8 +59,7 @@ class SnakeGame {
             Application.GameWidth / 2 - 50, Application.GameHeight / 2 - 50, this.score.toString(),
             {
                 fontSize: "100px",
-                fill: "#FFF",
-                align: "center"
+                fill: "#FFF"
             });
     }
 
@@ -70,7 +69,7 @@ class SnakeGame {
 
     updateSnake(game: Phaser.Game) {
         for (var i: number = this.snakeSize - 1; i >= 0; i--) {
-            this.snake[i].move(this.lastDirection);
+            this.snake[i].movement(this.lastDirection);
         }
 
         var cursors = game.input.keyboard.createCursorKeys();
@@ -103,14 +102,22 @@ class SnakeGame {
 
         // Check for collision with the Prey
         if (snakeHead.collideWith(this.prey)) {
-            this.preyConsumed();
+            this.preyConsumed(game);
         }
     }
 
-    preyConsumed() {
+    preyConsumed(game: Phaser.Game) {
         this.score += 5;
         this.updateScore();
 
+        // Add new bead
+        var lastBead = this.snake[this.snakeSize - 1];
+        var newBead = new Bead(false, lastBead.x, lastBead.y, lastBead.direction, true);
+        newBead.nextBead = lastBead;
+        newBead.addToGame(game);
+        this.snake.push(newBead);
+        this.snakeSize++;
+        
         // Prepare the next Prey location
         this.calculateNewPreyPosition();
     }

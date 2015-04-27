@@ -1,5 +1,6 @@
 var Bead = (function () {
-    function Bead(isHeadBead, x, y, direction) {
+    function Bead(isHeadBead, x, y, direction, isStillBead) {
+        var _this = this;
         this.isHeadBead = isHeadBead;
         if (this.isHeadBead) {
             this.spriteKey = Bead.HeadBeadSpriteKey;
@@ -10,9 +11,26 @@ var Bead = (function () {
         this.x = x;
         this.y = y;
         this.direction = direction;
+        if (isStillBead) {
+            this.movement = function () {
+                _this.stillMove();
+            };
+        }
+        else {
+            this.movement = function (lastDirection) {
+                _this.move(lastDirection);
+            };
+        }
     }
     Bead.prototype.addToGame = function (game) {
         this.sprite = game.add.sprite(this.x, this.y, this.spriteKey);
+    };
+    Bead.prototype.stillMove = function () {
+        var _this = this;
+        // Pass this turn and set the moving movement method to next call
+        this.movement = function (lastDirection) {
+            _this.move(lastDirection);
+        };
     };
     Bead.prototype.move = function (lastDirection) {
         if (this.isHeadBead) {
@@ -22,7 +40,7 @@ var Bead = (function () {
             this.direction = this.nextBead.direction;
         }
         var direction, span;
-        if (this.direction == 2 /* Right */ || this.direction == 3 /* Left */) {
+        if (this.direction == Direction.Right || this.direction == Direction.Left) {
             direction = DirectionMap[this.direction];
             span = Bead.BeadSpriteSize;
             this.x += direction * span;
@@ -34,7 +52,7 @@ var Bead = (function () {
             }
         }
         else {
-            direction = ((this.direction == 0 /* Up */ || this.direction == 1 /* Down */) ? DirectionMap[this.direction] : 1);
+            direction = ((this.direction == Direction.Up || this.direction == Direction.Down) ? DirectionMap[this.direction] : 1);
             span = Bead.BeadSpriteSize;
             this.y += direction * span;
             if (this.y >= Application.GameHeight) {
