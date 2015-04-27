@@ -15,6 +15,8 @@
         this.sprite = game.add.sprite(this.x, this.y, Prey.PreySpriteKey);
     }
 
-    nextPosition() {
+    setLocation(x: number, y: number) {
+        this.sprite.x = this.x = x;
+        this.sprite.y = this.y = y;
     }
 } 

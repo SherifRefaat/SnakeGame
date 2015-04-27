@@ -75,18 +75,44 @@ var SnakeGame = (function () {
         }
         // Check for collision with the Prey
         if (snakeHead.collideWith(this.prey)) {
-            this.prey.nextPosition();
             this.preyConsumed();
         }
     };
     SnakeGame.prototype.preyConsumed = function () {
         this.score += 5;
         Application.printScreen(this.score);
+        // Prepare the next Prey location
+        this.calculateNewPreyPosition();
     };
     SnakeGame.prototype.gameOver = function () {
         this.isGameOver = true;
         Application.gameClock.stop();
         Application.printScreen('Game Over');
+    };
+    SnakeGame.prototype.calculateNewPreyPosition = function () {
+        var x, y;
+        while (true) {
+            x = this.getRandomX();
+            y = this.getRandomY();
+            for (var i = 0; i < this.snake.length; i++) {
+                if (this.snake[i].x == x && this.snake[i].y == y) {
+                    break;
+                }
+            }
+            break;
+        }
+        this.prey.setLocation(x, y);
+    };
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+    // Returns a random integer between min (included) and max (excluded)
+    // Using Math.round() will give you a non-uniform distribution!
+    SnakeGame.prototype.getRandomX = function () {
+        var randomInt = Math.floor(Math.random() * (Application.GameWidth));
+        return randomInt - (randomInt % Bead.BeadSpriteSize);
+    };
+    SnakeGame.prototype.getRandomY = function () {
+        var randomInt = Math.floor(Math.random() * (Application.GameHeight));
+        return randomInt - (randomInt % Bead.BeadSpriteSize);
     };
     return SnakeGame;
 })();

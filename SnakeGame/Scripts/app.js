@@ -25,7 +25,7 @@ var Application = (function () {
     };
     Application.GameHeight = 600;
     Application.GameWidth = 810;
-    Application.GameClockTick = 200;
+    Application.GameClockTick = 150;
     Application.ScoreElementId = 'score';
     return Application;
 })();

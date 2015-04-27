@@ -4,7 +4,9 @@ var Prey = (function () {
         this.y = y;
         this.sprite = game.add.sprite(this.x, this.y, Prey.PreySpriteKey);
     }
-    Prey.prototype.nextPosition = function () {
+    Prey.prototype.setLocation = function (x, y) {
+        this.sprite.x = this.x = x;
+        this.sprite.y = this.y = y;
     };
     // All game sprites have the same snake beads size
     Prey.PreySize = Bead.BeadSpriteSize;

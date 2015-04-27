@@ -6,7 +6,7 @@
 
     static GameHeight: number = 600;
     static GameWidth: number = 810;
-    static GameClockTick: number = 200;
+    static GameClockTick: number = 150;
 
     static ScoreElementId: string = 'score';
 
