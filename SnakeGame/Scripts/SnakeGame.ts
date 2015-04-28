@@ -134,19 +134,20 @@ class SnakeGame {
     }
 
     calculateNewPreyPosition() {
-        var x, y;
-
-        while (true) {
+        var x, y, satisfied;
+        
+        do{
+            satisfied = true;
             x = this.getRandomX();
             y = this.getRandomY();
-
+            
             for (var i: number = 0; i < this.snake.length; i++) {
                 if (this.snake[i].x == x && this.snake[i].y == y) {
+                    satisfied = false;
                     break;
                 }
             }
-            break;
-        }
+        } while(!satisfied)
 
         this.prey.setLocation(x, y);
     }
