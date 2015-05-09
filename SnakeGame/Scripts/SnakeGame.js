@@ -104,17 +104,18 @@ var SnakeGame = (function () {
         this.textRender.setText(this.score.toString());
     };
     SnakeGame.prototype.calculateNewPreyPosition = function () {
-        var x, y;
-        while (true) {
+        var x, y, satisfied;
+        do {
+            satisfied = true;
             x = this.getRandomX();
             y = this.getRandomY();
             for (var i = 0; i < this.snake.length; i++) {
                 if (this.snake[i].x == x && this.snake[i].y == y) {
+                    satisfied = false;
                     break;
                 }
             }
-            break;
-        }
+        } while (!satisfied);
         this.prey.setLocation(x, y);
     };
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
